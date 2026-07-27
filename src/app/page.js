@@ -340,6 +340,23 @@ const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    batch: "Dec'26",
+  });
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    alert(`Thank you ${formData.name}! Your enquiry for ${formData.batch} batch has been received.`);
+    setFormData({ name: "", phone: "", email: "", batch: "Dec'26" });
+  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -347,26 +364,26 @@ export default function Home() {
 
   return (
     <main className="page-wrapper">
-      {/* ---------------- SECTION 1: HERO (Strict Left Aligned) ---------------- */}
+      {/* ---------------- SECTION 1: HERO ---------------- */}
       <header className="hero">
         <div className="hero-overlay" />
         <div className="container hero-container">
+          {/* Left Content */}
           <div className="hero-left-content">
             <p className="hero-kicker">
-              IREED Global Immersion
+              IREED Campus Immersion
               <br />
-              Program in Association with
+              Program at Association with
             </p>
 
+            {/* Brand Logo Row */}
             <div className="hero-brand-row">
               <span className="hero-polimi">POLIMI</span>
-              <span className="hero-polimi-sub">
-                GRADUATE
-                <br />
-                SCHOOL OF
-                <br />
-                MANAGEMENT
-              </span>
+              <div className="hero-polimi-sub">
+                <span>GRADUATE</span>
+                <span>SCHOOL OF</span>
+                <span>MANAGEMENT</span>
+              </div>
             </div>
 
             <h1 className="hero-headline">Building Global Real Estate Leaders</h1>
@@ -385,6 +402,70 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Right Side Compact Form Card */}
+          <div className="hero-form-card">
+            <h3>Apply Now</h3>
+
+            <form onSubmit={handleFormSubmit}>
+              <div className="form-group">
+                <label htmlFor="hero-name">Name</label>
+                <input
+                  type="text"
+                  id="hero-name"
+                  name="name"
+                  placeholder="Full Name"
+                  required
+                  value={formData.name}
+                  onChange={handleFormChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="hero-phone">Phone</label>
+                <input
+                  type="tel"
+                  id="hero-phone"
+                  name="phone"
+                  placeholder="Phone Number"
+                  required
+                  value={formData.phone}
+                  onChange={handleFormChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="hero-email">Email</label>
+                <input
+                  type="email"
+                  id="hero-email"
+                  name="email"
+                  placeholder="Email Address"
+                  required
+                  value={formData.email}
+                  onChange={handleFormChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="hero-batch">Interested for</label>
+                <select
+                  id="hero-batch"
+                  name="batch"
+                  value={formData.batch}
+                  onChange={handleFormChange}
+                  required
+                >
+                  <option value="Dec'26">Dec &rsquo;26</option>
+                  <option value="Apr'27">Apr &rsquo;27</option>
+                </select>
+              </div>
+
+              <button type="submit" className="hero-submit-btn">
+                Enquire
+              </button>
+            </form>
           </div>
         </div>
       </header>
@@ -552,7 +633,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- FAQ / PROCESS / ENQUIRE ---------------- */}
+      {/* ---------------- FAQ / PROCESS / ENQUIRE (EQUAL BUTTON ALIGNMENT) ---------------- */}
       <section className="fpe-strip">
         <div className="fpe-faq">
           <h3 className="fpe-heading">Frequently Asked Questions</h3>
@@ -605,7 +686,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- FOOTER ---------------- */}
-      <footer className="footer">
+      {/* <footer className="footer">
         <div className="container footer-grid">
           <div>
             <h3 className="footer-logo">IREED</h3>
@@ -675,7 +756,7 @@ export default function Home() {
             ))}
           </ul>
         </div>
-      </footer>
+      </footer> */}
 
       {/* Floating Utilities */}
       <div className="floating-actions">
@@ -690,9 +771,11 @@ export default function Home() {
       </div>
 
       {/* =====================================================================
-          STYLES — Fully left-aligned hero section
+          STYLES
          ===================================================================== */}
       <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700;800&display=swap");
+
         :root {
           --navy-deep: #071c38;
           --navy: #0b2c52;
@@ -706,7 +789,8 @@ export default function Home() {
           --muted: #5c6b7c;
           --line: #e6e2da;
 
-          --font-heading: "Poppins", system-ui, sans-serif;
+          /* Exact Serif font requested for headings */
+          --font-heading: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
           --font-body: "Inter", system-ui, sans-serif;
 
           --container: 1180px;
@@ -828,13 +912,13 @@ export default function Home() {
           background: var(--navy-mid);
         }
 
-        /* ---------------- SECTION 1 HERO (LEFT ALIGNED) ---------------- */
+        /* ---------------- SECTION 1 HERO ---------------- */
         .hero {
           position: relative;
-          min-height: 480px;
+          min-height: 460px;
           display: flex;
           align-items: center;
-          background: linear-gradient(120deg, var(--navy-deep) 35%, rgba(7, 28, 56, 0.45) 80%),
+          background: linear-gradient(120deg, var(--navy-deep) 38%, rgba(7, 28, 56, 0.35) 78%),
             url("https://images.unsplash.com/photo-1513581166391-887a96ddeafd?auto=format&fit=crop&w=1600&q=80")
               center/cover no-repeat;
           color: var(--white);
@@ -845,74 +929,86 @@ export default function Home() {
           inset: 0;
           background: linear-gradient(
             90deg,
-            rgba(7, 28, 56, 0.95) 0%,
-            rgba(7, 28, 56, 0.7) 50%,
-            rgba(7, 28, 56, 0.1) 100%
+            rgba(7, 28, 56, 0.94) 0%,
+            rgba(7, 28, 56, 0.65) 55%,
+            rgba(7, 28, 56, 0.15) 100%
           );
         }
         .hero-container {
-          display: flex;
-          justify-content: flex-start;
+          display: grid;
+          grid-template-columns: 1fr 310px;
+          gap: 40px;
+          align-items: center;
+          position: relative;
+          z-index: 1;
+          padding-top: 42px;
+          padding-bottom: 42px;
           width: 100%;
         }
         .hero-left-content {
-          position: relative;
-          z-index: 1;
-          padding-top: 56px;
-          padding-bottom: 56px;
-          max-width: 760px;
-          margin-left: 0;
-          margin-right: auto;
           text-align: left;
         }
         .hero-kicker {
           font-family: var(--font-heading);
           font-weight: 600;
-          font-size: 20px;
+          font-size: 19px;
           line-height: 1.35;
-          margin-bottom: 18px;
+          margin-bottom: 16px;
           color: var(--gold-light);
         }
+
+        /* ---------------- LOGO ROW ---------------- */
         .hero-brand-row {
-          display: flex;
+          display: inline-flex;
           align-items: center;
           justify-content: flex-start;
-          gap: 14px;
-          margin-bottom: 22px;
+          gap: 16px;
+          margin-bottom: 20px;
         }
         .hero-polimi {
-          font-family: var(--font-heading);
+          font-family: "Oswald", "Bebas Neue", "Impact", "Arial Narrow", sans-serif;
           font-weight: 800;
-          font-size: 40px;
-          letter-spacing: 0.01em;
+          font-size: 52px;
+          line-height: 0.9;
+          letter-spacing: 0.02em;
+          color: var(--white);
+          text-transform: uppercase;
+          transform: scaleY(1.15);
         }
         .hero-polimi-sub {
-          font-size: 12px;
-          font-weight: 600;
-          line-height: 1.35;
-          letter-spacing: 0.03em;
-          padding-left: 14px;
-          border-left: 2px solid rgba(255, 255, 255, 0.4);
+          font-family: "Oswald", "Bebas Neue", "Impact", "Arial Narrow", sans-serif;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 1.1;
+          letter-spacing: 0.05em;
+          color: var(--white);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          text-transform: uppercase;
+          height: 48px;
         }
+
         .hero-headline {
           color: var(--white);
-          font-size: 34px;
+          font-size: 32px;
           font-weight: 700;
-          margin-bottom: 18px;
+          margin-bottom: 16px;
           text-align: left;
         }
         .hero-sub {
-          font-size: 15px;
-          color: rgba(255, 255, 255, 0.85);
-          max-width: 620px;
-          margin-bottom: 30px;
+          font-size: 14.5px;
+          color: rgba(255, 255, 255, 0.88);
+          max-width: 580px;
+          margin-bottom: 26px;
           text-align: left;
+          line-height: 1.55;
         }
         .hero-features {
           display: flex;
           flex-wrap: wrap;
           justify-content: flex-start;
-          gap: 26px;
+          gap: 22px;
         }
         .hero-features li {
           display: flex;
@@ -923,6 +1019,74 @@ export default function Home() {
         }
         .hero-feature-icon {
           color: var(--gold-light);
+        }
+
+        /* Sleek Right Form Card */
+        .hero-form-card {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(8px);
+          border-radius: 10px;
+          padding: 20px 22px;
+          color: var(--ink);
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+          border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        .hero-form-card h3 {
+          font-size: 16px;
+          font-weight: 700;
+          color: var(--navy);
+          margin-bottom: 14px;
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 0.03em;
+        }
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          margin-bottom: 10px;
+        }
+        .form-group label {
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--navy-mid);
+          text-transform: uppercase;
+          letter-spacing: 0.02em;
+        }
+        .form-group input,
+        .form-group select {
+          width: 100%;
+          padding: 8px 10px;
+          border: 1px solid #d0d5dd;
+          border-radius: 5px;
+          font-size: 12.5px;
+          font-family: var(--font-body);
+          color: var(--ink);
+          background: #ffffff;
+          outline: none;
+          transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+          border-color: var(--gold);
+          box-shadow: 0 0 0 2px rgba(200, 150, 62, 0.2);
+        }
+        .hero-submit-btn {
+          width: 100%;
+          background: linear-gradient(135deg, var(--gold), #b07f2d);
+          color: var(--white);
+          border: none;
+          padding: 9px 14px;
+          border-radius: 5px;
+          font-size: 13px;
+          font-weight: 700;
+          cursor: pointer;
+          margin-top: 6px;
+          transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+        .hero-submit-btn:hover {
+          opacity: 0.95;
+          transform: translateY(-1px);
         }
 
         /* ---------------- ABOUT ---------------- */
@@ -1153,10 +1317,11 @@ export default function Home() {
           line-height: 1.5;
         }
 
-        /* ---------------- FAQ / PROCESS / ENQUIRE ---------------- */
+        /* ---------------- FAQ / PROCESS / ENQUIRE (EQUAL BOTTOM BUTTON ALIGNMENT) ---------------- */
         .fpe-strip {
           display: grid;
           grid-template-columns: 1.15fr 1.15fr 0.9fr;
+          align-items: stretch;
         }
         .fpe-heading {
           font-size: 17px;
@@ -1167,6 +1332,8 @@ export default function Home() {
         .fpe-faq {
           background: var(--white);
           padding: 40px 34px;
+          display: flex;
+          flex-direction: column;
         }
         .fpe-faq-list {
           display: flex;
@@ -1196,12 +1363,16 @@ export default function Home() {
         .fpe-view-all {
           padding: 10px 22px;
           font-size: 13px;
+          margin-top: auto;
+          align-self: flex-start;
         }
         .fpe-process {
           background: var(--cream);
           padding: 40px 34px;
           border-left: 1px solid var(--line);
           border-right: 1px solid var(--line);
+          display: flex;
+          flex-direction: column;
         }
         .fpe-steps {
           display: flex;
@@ -1234,11 +1405,15 @@ export default function Home() {
         .fpe-apply-btn {
           padding: 10px 22px;
           font-size: 13px;
+          margin-top: auto;
+          align-self: flex-start;
         }
         .fpe-enquire {
           background: linear-gradient(135deg, var(--gold), #b07f2d);
           color: var(--white);
           padding: 40px 34px;
+          display: flex;
+          flex-direction: column;
         }
         .fpe-enquire-heading {
           font-size: 20px;
@@ -1268,6 +1443,8 @@ export default function Home() {
           color: var(--white);
           padding: 10px 22px;
           font-size: 13px;
+          margin-top: auto;
+          align-self: flex-start;
         }
 
         /* ---------------- FOOTER ---------------- */
@@ -1425,6 +1602,14 @@ export default function Home() {
 
         /* RESPONSIVE */
         @media (max-width: 980px) {
+          .hero-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+          }
+          .hero-form-card {
+            max-width: 360px;
+            margin: 0 auto;
+          }
           .curriculum-grid,
           .fpe-strip,
           .footer-grid {
@@ -1435,6 +1620,11 @@ export default function Home() {
           }
           .curriculum-duomo {
             display: none;
+          }
+          .fpe-view-all,
+          .fpe-apply-btn,
+          .fpe-contact-btn {
+            margin-top: 16px;
           }
         }
 
@@ -1448,7 +1638,11 @@ export default function Home() {
             font-size: 26px;
           }
           .hero-polimi {
-            font-size: 30px;
+            font-size: 38px;
+          }
+          .hero-polimi-sub {
+            height: 36px;
+            font-size: 11px;
           }
         }
       `}</style>
