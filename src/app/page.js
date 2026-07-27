@@ -487,6 +487,7 @@ export default function Home() {
               industry and research.
             </p>
 
+            {/* Stats in Single Horizontal Line */}
             <ul className="about-stats">
               {aboutStats.map(({ icon: Icon, number, label }) => (
                 <li key={label}>
@@ -789,7 +790,7 @@ export default function Home() {
           --muted: #5c6b7c;
           --line: #e6e2da;
 
-          /* Exact Serif font requested for headings */
+          /* Exact Serif font for headings */
           --font-heading: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
           --font-body: "Inter", system-ui, sans-serif;
 
@@ -1089,7 +1090,7 @@ export default function Home() {
           transform: translateY(-1px);
         }
 
-        /* ---------------- ABOUT ---------------- */
+        /* ---------------- ABOUT (STATS IN SINGLE HORIZONTAL ROW) ---------------- */
         .about-grid {
           display: grid;
           grid-template-columns: 1.05fr 1fr;
@@ -1104,14 +1105,17 @@ export default function Home() {
         }
         .about-stats {
           display: flex;
-          gap: 34px;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          align-items: center;
+          gap: 28px;
           margin-top: 34px;
-          flex-wrap: wrap;
         }
         .about-stats li {
           display: flex;
           align-items: center;
           gap: 10px;
+          white-space: nowrap;
         }
         .about-stats li div {
           display: flex;
@@ -1609,6 +1613,10 @@ export default function Home() {
           .hero-form-card {
             max-width: 360px;
             margin: 0 auto;
+          }
+          .about-stats {
+            flex-wrap: wrap;
+            gap: 18px;
           }
           .curriculum-grid,
           .fpe-strip,
