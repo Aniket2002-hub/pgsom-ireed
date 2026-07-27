@@ -378,12 +378,11 @@ export default function Home() {
 
             {/* Brand Logo Row */}
             <div className="hero-brand-row">
-              <span className="hero-polimi">POLIMI</span>
-              <div className="hero-polimi-sub">
-                <span>GRADUATE</span>
-                <span>SCHOOL OF</span>
-                <span>MANAGEMENT</span>
-              </div>
+              <img
+                src="/polomi-logo.png"
+                alt="POLIMI Graduate School of Management"
+                className="hero-logo-img"
+              />
             </div>
 
             <h1 className="hero-headline">Building Global Real Estate Leaders</h1>
@@ -775,8 +774,6 @@ export default function Home() {
           STYLES
          ===================================================================== */}
       <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700;800&display=swap");
-
         :root {
           --navy-deep: #071c38;
           --navy: #0b2c52;
@@ -954,46 +951,37 @@ export default function Home() {
           font-weight: 600;
           font-size: 19px;
           line-height: 1.35;
-          margin-bottom: 16px;
+          margin-bottom: -6px; /* pulled tighter — logo now overlaps kicker's line spacing */
           color: var(--gold-light);
         }
 
-        /* ---------------- LOGO ROW ---------------- */
+        /* ---------------- LOGO + HEADLINE ALIGNMENT ----------------
+           The logo PNG has built-in transparent padding on its left
+           edge, so a negative left margin pulls the visible mark
+           flush with the text above/below it. Adjust the margin-left
+           value below if your logo asset changes. */
         .hero-brand-row {
-          display: inline-flex;
+          display: flex;
           align-items: center;
           justify-content: flex-start;
-          gap: 16px;
-          margin-bottom: 20px;
+          gap: 14px;
+          margin-top: -6px; /* pulls logo closer to kicker text above */
+          margin-bottom: -8px; /* pulls headline closer to logo below */
+          margin-left: -42px; /* closes transparent left padding in logo asset */
         }
-        .hero-polimi {
-          font-family: "Oswald", "Bebas Neue", "Impact", "Arial Narrow", sans-serif;
-          font-weight: 800;
-          font-size: 52px;
-          line-height: 0.9;
-          letter-spacing: 0.02em;
-          color: var(--white);
-          text-transform: uppercase;
-          transform: scaleY(1.15);
-        }
-        .hero-polimi-sub {
-          font-family: "Oswald", "Bebas Neue", "Impact", "Arial Narrow", sans-serif;
-          font-size: 14px;
-          font-weight: 700;
-          line-height: 1.1;
-          letter-spacing: 0.05em;
-          color: var(--white);
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          text-transform: uppercase;
-          height: 48px;
+        .hero-logo-img {
+          height: 112px;
+          width: auto;
+          max-width: 460px;
+          object-fit: contain;
+          object-position: left center;
         }
 
         .hero-headline {
           color: var(--white);
           font-size: 32px;
           font-weight: 700;
+          margin-top: -18px; /* closes remaining gap from logo's built-in vertical padding */
           margin-bottom: 16px;
           text-align: left;
         }
@@ -1645,12 +1633,8 @@ export default function Home() {
           .hero-headline {
             font-size: 26px;
           }
-          .hero-polimi {
-            font-size: 38px;
-          }
-          .hero-polimi-sub {
-            height: 36px;
-            font-size: 11px;
+          .hero-logo-img {
+            height: 72px;
           }
         }
       `}</style>
