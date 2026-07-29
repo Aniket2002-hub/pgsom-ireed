@@ -371,9 +371,9 @@ export default function Home() {
           {/* Left Content */}
           <div className="hero-left-content">
             <p className="hero-kicker">
-              IREED Campus Immersion
+              Campus Immersion Program at Milan, Italy
               <br />
-              Program at Association with
+         
             </p>
 
             {/* Brand Logo Row */}
@@ -675,7 +675,7 @@ export default function Home() {
               <PhoneIcon /> +91 90906 04013
             </li>
             <li>
-              <MailIcon /> global@ireedindia.com
+              <MailIcon /> admissions@ireedindia.com
             </li>
             <li>
               <WebIcon /> www.ireedindia.com
