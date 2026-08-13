@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 /* =========================================================================
    ICONS — Inline SVG line icons
@@ -16,6 +16,26 @@ const iconBase = {
   strokeLinecap: "round",
   strokeLinejoin: "round",
 };
+
+const defaultSlides = [
+  {
+    label: "Expert Trainer",
+    color: "#2563eb",
+    bg: "#eff6ff",
+    img: "./campus.jpeg",
+  },
+  {
+    label: "1-on-1 Session",
+    color: "#7c3aed",
+    bg: "#f5f3ff",
+    img: "./campus2.jpeg",
+  },
+  {
+    label: "Goal Tracking",
+    img: "/campus3.jpeg",
+  },
+];
+
 
 function GlobeIcon(props) {
   return (
@@ -186,6 +206,12 @@ const aboutStats = [
   { icon: MedalIcon, number: "80+", label: "Years of Excellence" },
 ];
 
+const aboutImages = [
+  { src: "./campus.jpeg", alt: "POLIMI campus modern facility" },
+  { src: "./campus2.jpeg", alt: "POLIMI campus building exterior" },
+  { src: "./campus3.jpeg", alt: "POLIMI campus learning space" },
+];
+
 const campusPoints = [
   { icon: BuildingIcon, label: "World-Class Campus" },
   { icon: BookIcon, label: "Modern Learning Facilities" },
@@ -220,19 +246,19 @@ const curriculumItems = [
 
 const visitImages = [
   {
-    src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80",
+    src: "./campus.jpeg",
     alt: "High rise modern corporate tower",
   },
   {
-    src: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=400&q=80",
+    src: "./campus2.jpeg",
     alt: "Green terrace residential architecture",
   },
   {
-    src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&q=80",
+    src: "./compus3.jpeg",
     alt: "Modern commercial interior site visit",
   },
   {
-    src: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=400&q=80",
+    src: "./POLIMI-9796.jpeg",
     alt: "Contemporary mixed-use urban layout",
   },
 ];
@@ -246,19 +272,19 @@ const studentLifePoints = [
 
 const studentLifeImages = [
   {
-    src: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=400&q=80",
+    src: "./italy.jpg",
     alt: "Italian canal streetscape",
   },
   {
-    src: "https://images.unsplash.com/photo-1520106212299-d99c443e4568?auto=format&fit=crop&w=400&q=80",
+    src: "./italy2.jpeg ",
     alt: "Historic ornate architecture interior",
   },
   {
-    src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80",
+    src: "./italy3.jpeg",
     alt: "Authentic Italian dining",
   },
   {
-    src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80",
+    src: "./italy4.jpeg",
     alt: "Group of international students",
   },
 ];
@@ -267,7 +293,7 @@ const highlights = [
   {
     icon: CertificateIcon,
     title: "International Certification",
-    text: "from POLIMI Graduate School of Management",
+    text: "from POLIMI Graduate School of Management (Italy) (Italy)",
   },
   {
     icon: TeacherIcon,
@@ -340,12 +366,21 @@ const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
+  const [activeAboutImage, setActiveAboutImage] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     batch: "Dec'26",
   });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveAboutImage((prev) => (prev + 1) % aboutImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+  
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -380,7 +415,7 @@ export default function Home() {
             <div className="hero-brand-row">
               <img
                 src="/polomi-logo.png"
-                alt="POLIMI Graduate School of Management"
+                alt="POLIMI Graduate School of Management (Italy)"
                 className="hero-logo-img"
               />
             </div>
@@ -477,10 +512,10 @@ export default function Home() {
             <h2 className="section-title">
               POLIMI Graduate School
               <br />
-              of Management
+              of Management (Italy)
             </h2>
             <p className="about-copy">
-              POLIMI Graduate School of Management is the management school of Politecnico di
+              POLIMI Graduate School of Management (Italy) is the management school of Politecnico di
               Milano, one of Europe&rsquo;s top technical universities. It is internationally
               recognized for its academic excellence, innovation, and strong connection with
               industry and research.
@@ -503,10 +538,14 @@ export default function Home() {
           </div>
 
           <div className="about-image-wrap">
-            <img
-              src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80"
-              alt="POLIMI campus modern facility"
-            />
+            {aboutImages.map((img, i) => (
+              <img
+                key={img.src}
+                src={img.src}
+                alt={img.alt}
+                className={i === activeAboutImage ? "active" : ""}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -945,6 +984,7 @@ export default function Home() {
         }
         .hero-left-content {
           text-align: left;
+          margin-top: -102px;
         }
         .hero-kicker {
           font-family: var(--font-heading);
@@ -1135,7 +1175,18 @@ export default function Home() {
           box-shadow: var(--shadow-card);
           width: 100%;
           height: 320px;
+          margin-top: -157;
           object-fit: cover;
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transition: opacity 1s ease;
+        }
+        .about-image-wrap img.active {
+          opacity: 1;
+        }
+        .about-image-wrap {
+          position: relative;
         }
 
         /* ---------------- CAMPUS ---------------- */
