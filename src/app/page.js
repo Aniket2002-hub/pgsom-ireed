@@ -216,15 +216,15 @@ const campusPoints = [
 
 const campusImages = [
   {
-    src: "./italy10.jpg",
+    src: "/campus2.jpeg",
     alt: "Street view in Milan",
   },
   {
-    src: "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=80",
+    src: "/campus.jpeg",
     alt: "Modern campus interior",
   },
   {
-    src: "./italy9.jpeg",
+    src: "/campus3.jpeg",
     alt: "Milan skyline sunset",
   },
 ];
@@ -242,19 +242,19 @@ const curriculumItems = [
 
 const visitImages = [
   {
-    src: "./campus.jpeg",
+    src: "/italy9.jpeg",
     alt: "High rise modern corporate tower",
   },
   {
-    src: "./campus2.jpeg",
+    src: "/italy10.jpg",
     alt: "Green terrace residential architecture",
   },
   {
-    src: "./compus3.jpeg",
+    src: "/italy.jpg",
     alt: "Modern commercial interior site visit",
   },
   {
-    src: "./POLIMI-9796.jpeg",
+    src: "/italy3.jpeg",
     alt: "Contemporary mixed-use urban layout",
   },
 ];
@@ -958,8 +958,8 @@ export default function Home() {
           min-height: 460px;
           display: flex;
           align-items: center;
-          background: linear-gradient(120deg, var(--navy-deep) 38%, rgba(7, 28, 56, 0.35) 78%),
-            url("https://images.unsplash.com/photo-1513581166391-887a96ddeafd?auto=format&fit=crop&w=1600&q=80")
+          background: linear-gradient(120deg,  rgba(7, 28, 56, 0.35) 78%),
+            url("/campus2.jpeg")
               center/cover no-repeat;
           color: var(--white);
           overflow: hidden;
@@ -968,10 +968,10 @@ export default function Home() {
           position: absolute;
           inset: 0;
           background: linear-gradient(
-            90deg,
+            50deg,
             rgba(7, 28, 56, 0.94) 0%,
-            rgba(7, 28, 56, 0.65) 55%,
-            rgba(7, 28, 56, 0.15) 100%
+            rgba(7, 28, 56, 0.65) 35%,
+            rgba(7, 28, 56, 0.15) 60%
           );
         }
         .hero-container {
