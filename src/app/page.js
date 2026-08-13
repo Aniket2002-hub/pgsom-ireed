@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 /* =========================================================================
    ICONS — Inline SVG line icons
@@ -35,6 +35,8 @@ const defaultSlides = [
     img: "/campus3.jpeg",
   },
 ];
+
+const YOUTUBE_VIDEO_ID = "alvzexlZqIo";
 
 
 function GlobeIcon(props) {
@@ -206,12 +208,6 @@ const aboutStats = [
   { icon: MedalIcon, number: "80+", label: "Years of Excellence" },
 ];
 
-const aboutImages = [
-  { src: "./campus.jpeg", alt: "POLIMI campus modern facility" },
-  { src: "./campus2.jpeg", alt: "POLIMI campus building exterior" },
-  { src: "./campus3.jpeg", alt: "POLIMI campus learning space" },
-];
-
 const campusPoints = [
   { icon: BuildingIcon, label: "World-Class Campus" },
   { icon: BookIcon, label: "Modern Learning Facilities" },
@@ -220,7 +216,7 @@ const campusPoints = [
 
 const campusImages = [
   {
-    src: "https://images.unsplash.com/photo-1513581166391-887a96ddeafd?auto=format&fit=crop&w=600&q=80",
+    src: "./italy10.jpg",
     alt: "Street view in Milan",
   },
   {
@@ -228,7 +224,7 @@ const campusImages = [
     alt: "Modern campus interior",
   },
   {
-    src: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80",
+    src: "./italy9.jpeg",
     alt: "Milan skyline sunset",
   },
 ];
@@ -366,21 +362,13 @@ const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(null);
-  const [activeAboutImage, setActiveAboutImage] = useState(0);
+  const [videoPlaying, setVideoPlaying] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     batch: "Dec'26",
   });
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveAboutImage((prev) => (prev + 1) % aboutImages.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-  
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -408,7 +396,7 @@ export default function Home() {
             <p className="hero-kicker">
               Campus Immersion Program at Milan, Italy
               <br />
-         
+
             </p>
 
             {/* Brand Logo Row */}
@@ -537,15 +525,30 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="about-image-wrap">
-            {aboutImages.map((img, i) => (
-              <img
-                key={img.src}
-                src={img.src}
-                alt={img.alt}
-                className={i === activeAboutImage ? "active" : ""}
+          <div className="about-video-wrap">
+            {videoPlaying ? (
+              <iframe
+                className="about-video"
+                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=0&rel=0`}
+                title="POLIMI Graduate School of Management video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
               />
-            ))}
+            ) : (
+              <button
+                type="button"
+                className="about-video-thumb"
+                onClick={() => setVideoPlaying(true)}
+                aria-label="Play POLIMI Graduate School of Management video"
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`}
+                  alt="POLIMI Graduate School of Management video thumbnail"
+                  loading="lazy"
+                />
+                <span className="about-video-play" />
+              </button>
+            )}
           </div>
         </div>
       </section>
@@ -554,10 +557,9 @@ export default function Home() {
       <section className="section-tight campus">
         <div className="container">
           <p className="eyebrow">Location</p>
-          <h2 className="section-title">Campus Experience at Milan</h2>
+          <h2 className="section-title">Campus Experience at Milan (Italy)</h2>
           <p className="section-lead">
-            Learn in the heart of Milan &mdash; a global center for design, innovation, business
-            and culture.
+            Learn in the heart of Milan &mdash; a global center for design, innovation, business and culture.
           </p>
 
           <div className="campus-image-row">
@@ -714,7 +716,7 @@ export default function Home() {
               <PhoneIcon /> +91 90906 04013
             </li>
             <li>
-              <MailIcon /> admissions@ireedindia.com
+              <MailIcon /> Info@ireedindia.com
             </li>
             <li>
               <WebIcon /> www.ireedindia.com
@@ -849,6 +851,7 @@ export default function Home() {
           font-family: var(--font-body);
           color: var(--ink);
           background: var(--white);
+          overflow-x: hidden;
           -webkit-font-smoothing: antialiased;
           line-height: 1.55;
         }
@@ -920,7 +923,7 @@ export default function Home() {
 
         .section-lead {
           color: var(--muted);
-          font-size: 15.5px;
+          font-size: 14.5px;
           max-width: 640px;
           margin-top: 10px;
         }
@@ -1170,23 +1173,61 @@ export default function Home() {
           justify-content: center;
           flex-shrink: 0;
         }
-        .about-image-wrap img {
-          border-radius: var(--radius);
-          box-shadow: var(--shadow-card);
+        .about-video-wrap {
+          position: relative;
           width: 100%;
-          height: 320px;
-          margin-top: -157;
-          object-fit: cover;
+          aspect-ratio: 16 / 9;
+          border-radius: var(--radius);
+          overflow: hidden;
+          box-shadow: var(--shadow-card);
+        }
+        .about-video {
           position: absolute;
           inset: 0;
-          opacity: 0;
-          transition: opacity 1s ease;
+          width: 100%;
+          height: 100%;
+          border: 0;
         }
-        .about-image-wrap img.active {
-          opacity: 1;
+        .about-video-thumb {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          border: 0;
+          background: #000;
+          cursor: pointer;
         }
-        .about-image-wrap {
-          position: relative;
+        .about-video-thumb img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .about-video-play {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 64px;
+          height: 64px;
+          transform: translate(-50%, -50%);
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.65);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .about-video-play::before {
+          content: "";
+          border-left: 22px solid #fff;
+          border-top: 14px solid transparent;
+          border-bottom: 14px solid transparent;
+          margin-left: 5px;
+        }
+        .about-video-thumb:hover .about-video-play {
+          background: var(--gold);
+          transform: translate(-50%, -50%) scale(1.08);
         }
 
         /* ---------------- CAMPUS ---------------- */
@@ -1673,19 +1714,113 @@ export default function Home() {
           .fpe-contact-btn {
             margin-top: 16px;
           }
+          .fpe-process {
+            border-left: none;
+            border-right: none;
+          }
         }
 
         @media (max-width: 760px) {
+          .section {
+            padding: 44px 0;
+          }
+          .section-tight {
+            padding: 36px 0;
+          }
+          .hero {
+            min-height: auto;
+          }
+          .hero-container {
+            padding-top: 30px;
+            padding-bottom: 30px;
+            gap: 26px;
+          }
+          .hero-left-content {
+            margin-top: 0;
+          }
+          .hero-brand-row {
+            margin-left: 0;
+            margin-top: 4px;
+          }
+          .hero-logo-img {
+            height: 64px;
+            max-width: 90%;
+          }
+          .hero-headline {
+            font-size: 26px;
+            margin-top: 2px;
+          }
+          .hero-sub {
+            font-size: 14px;
+          }
+          .hero-features {
+            gap: 14px 20px;
+          }
           .about-grid,
           .campus-image-row,
           .student-life-image-grid {
             grid-template-columns: 1fr;
           }
+          .about-stats {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+          }
+          .campus-image-card img {
+            height: 200px;
+          }
+          .section-title {
+            font-size: 24px;
+          }
+          .highlights-grid {
+            grid-template-columns: 1fr;
+            gap: 22px;
+          }
+          .highlights-title {
+            font-size: 22px;
+            margin-bottom: 28px;
+          }
+          .fpe-faq,
+          .fpe-process,
+          .fpe-enquire {
+            padding: 28px 22px;
+          }
+          .footer {
+            padding-top: 40px;
+          }
+          .footer-grid {
+            gap: 28px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .container {
+            padding: 0 18px;
+          }
           .hero-headline {
-            font-size: 26px;
+            font-size: 23px;
           }
           .hero-logo-img {
-            height: 72px;
+            height: 56px;
+          }
+          .student-life-image-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+          }
+          .student-life-image-grid img {
+            height: 140px;
+          }
+          .campus-image-row {
+            gap: 14px;
+          }
+          .form-group input,
+          .form-group select {
+            font-size: 16px;
+            padding: 11px 12px;
+          }
+          .hero-submit-btn {
+            padding: 13px 14px;
+            font-size: 14.5px;
           }
         }
       `}</style>
