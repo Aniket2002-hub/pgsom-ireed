@@ -824,7 +824,7 @@ export default function Home() {
         .fade-up { animation: fadeUp 0.7s ease both; }
 
         @media (prefers-reduced-motion: reduce) {
-          {/* .fade-up, .hover-card { animation: none !important; transition: none !important; } */}
+          .fade-up, .hover-card { animation: none !important; transition: none !important; }
         }
 
         /* ---------------- Universal hover card ---------------- */
@@ -880,7 +880,7 @@ export default function Home() {
         .highlight-card { text-align: left; }
         .highlight-card strong { font-size: 15px; font-weight: 700; color: var(--c-dark); transition: color 0.35s ease; }
         .highlight-card p { font-size: 13px; color: var(--c-muted); line-height: 1.5; transition: color 0.35s ease; }
-        .highlight-card:hover p { color: rgba(255,255,255,0.9) !important; }
+        {/* .highlight-card:hover p { color: rgba(255,255,255,0.9) !important; } */}
 
         /* ---------------- HERO ---------------- */
         .hero {
@@ -962,7 +962,7 @@ export default function Home() {
         /* ---------------- CUSTOM IMAGE CAROUSEL (no external deps) ---------------- */
         .ireed-carousel-viewport {
           position: relative;
-          width: 90%;
+          width: 100%;
           aspect-ratio: 16 / 7;
           border-radius: var(--radius);
           overflow: hidden;
